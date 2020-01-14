@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, FlatList, Button } from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
 import CardList from "./components/CardList";
 import AddCard from "./components/AddCard";
 import Header from "./components/Header";
