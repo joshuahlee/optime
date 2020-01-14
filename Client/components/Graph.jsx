@@ -24,10 +24,10 @@ const height = 200;
 const { width } = Dimensions.get("window");
 const verticalPadding = 5;
 const cursorRadius = 10;
-const labelWidth = 100;
+const labelWidth = 80;
 
 const data = [
-  { x: new Date(2020, 1, 1), y: 0 },
+  { x: new Date(2020, 1, 1), y: 2 },
   { x: new Date(2020, 1, 2), y: 3 },
   { x: new Date(2020, 1, 3), y: 5 },
   { x: new Date(2020, 1, 4), y: 6 },
@@ -65,14 +65,13 @@ export default class Graph extends React.Component {
   label = React.createRef();
 
   moveCursor(value) {
-    console.log(this.props.visible)
     const { x, y } = properties.getPointAtLength(lineLength - value);
     if (this.props.visible) {
       this.cursor.current.setNativeProps({ top: y - cursorRadius, left: x - cursorRadius });
     }
     const label = scaleLabel(scaleY.invert(y));
     if (this.props.visible) {
-      this.label.current.setNativeProps({ text: `${label} CHF`})
+      this.label.current.setNativeProps({ text: `  Growth: ${label}`})
     }
   }
 
@@ -140,8 +139,15 @@ export default class Graph extends React.Component {
               horizontal
             />
           </View>
+          <View style={style.ratings}>
+            <Button title="1"/>
+            <Button title="2"/>
+            <Button title="3"/>
+            <Button title="4"/>
+            <Button title="5"/>
+          </View>
         </SafeAreaView>
-        <Button title="Go Back" onPress={onGoBack} />
+        <Button title="Go Back" onPress={onGoBack} style={style.button}/>
       </Modal>
     );
   }
@@ -149,7 +155,9 @@ export default class Graph extends React.Component {
 
 const style = StyleSheet.create({
   root: {
-    flex: 1
+    flex: 0.75,
+    justifyContent: "center",
+    alignItems: "center"
   },
   container: {
     height,
@@ -164,10 +172,18 @@ const style = StyleSheet.create({
     backgroundColor: "white"
   },
   label: {
-    backgroundColor: "lightgray",
+    backgroundColor: "#C9F9FF",
     position: 'absolute',
     top: 0,
     left: 0,
-    width: labelWidth
+    width: labelWidth,
+    height: 20
+  },
+  button: {
+    flex: 0.25
+  },
+  ratings: {
+    flexDirection: 'row',
+    justifyContent: "space-between"
   }
 });
